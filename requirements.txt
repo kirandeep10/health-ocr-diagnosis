@@ -1,6 +1,7 @@
 streamlit
-pytesseract
 pillow
-numpy
-pandas
+joblib
 scikit-learn
+pytesseract
+opencv-python
+numpy

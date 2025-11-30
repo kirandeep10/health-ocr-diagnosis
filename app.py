@@ -1,7 +1,6 @@
 import streamlit as st
 from extract import extract_fields, predict_disease
 from PIL import Image
-from reportlab.pdfgen import canvas
 import os
 
 st.set_page_config(page_title="Health OCR & Disease Prediction", layout="centered")
@@ -18,7 +17,7 @@ data = {
     "name": "",
     "age": "",
     "weight": "",
-    "sugar": "",     
+    "sugar": "",
     "bp": "",
     "fever": "",
     "heartbeat": "",
@@ -43,8 +42,6 @@ if mode == "Upload Image":
 
         st.subheader("✏️ Review & Edit Extracted Information")
         for key in data.keys():
-
-            # Use OCR value, but replace empty with "Not Found"
             default = extracted.get(key, "")
             if not default:
                 default = "Not Found"
@@ -77,7 +74,6 @@ if st.button("📋 Show Patient Data"):
             unsafe_allow_html=True
         )
 
-    # enable prediction
     st.session_state["data_ready"] = True
 
 
@@ -104,25 +100,18 @@ if st.session_state.get("data_ready", False):
         )
 
         # -----------------------
-        # PDF DOWNLOAD
+        # SIMPLE TEXT REPORT (No PDF)
         # -----------------------
         st.subheader("📄 Download Report")
 
-        pdf_path = "report.pdf"
-        c = canvas.Canvas(pdf_path)
-        c.setFont("Helvetica", 12)
-        y = 800
-
-        c.drawString(50, y, "Health Report")
-        y -= 40
-
+        report_text = "HEALTH REPORT\n\n"
         for key, value in data.items():
-            c.drawString(50, y, f"{key.capitalize()}: {value}")
-            y -= 25
+            report_text += f"{key.capitalize()}: {value}\n"
+        report_text += f"\nDisease Prediction: {prediction}\n"
 
-        c.drawString(50, y - 10, f"Disease Prediction: {prediction}")
-
-        c.save()
-
-        with open(pdf_path, "rb") as f:
-            st.download_button("⬇ Download PDF Report", f, file_name="Health_Report.pdf")
+        st.download_button(
+            label="⬇ Download Report",
+            data=report_text,
+            file_name="Health_Report.txt",
+            mime="text/plain"
+        )
