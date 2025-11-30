@@ -11,7 +11,7 @@ def init_db():
             weight REAL,
             sugar REAL,
             bp INTEGER,
-            fever REAL,
+            fever REAL,   
             heartbeat INTEGER,
             pulse INTEGER,
             risk INTEGER

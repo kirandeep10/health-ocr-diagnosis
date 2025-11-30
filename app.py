@@ -18,7 +18,7 @@ data = {
     "name": "",
     "age": "",
     "weight": "",
-    "sugar": "",
+    "sugar": "",     
     "bp": "",
     "fever": "",
     "heartbeat": "",
