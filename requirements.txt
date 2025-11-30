@@ -1,7 +1,9 @@
 streamlit
-pillow
-joblib
+Pillow
+opencv-python-headless
+easyocr
+torch
+torchvision
 scikit-learn
-pytesseract
-opencv-python
-numpy
+joblib
+reportlab
